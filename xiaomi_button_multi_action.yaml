@@ -2,7 +2,7 @@ blueprint:
   name: Xiaomi/Aqara Button Multi-Action
   description: Perform actions based on Xiaomi button presses
   domain: automation
-  source_url: https://github.com/your_github_account/blueprints
+  source_url: https://github.com/nkreadly07/blueprints
   input:
     button_entity:
       name: Xiaomi Button
