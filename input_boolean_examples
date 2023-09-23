@@ -1,0 +1,12 @@
+#/config/configuration.yaml
+
+#Mi button 1
+  intermediate_toggle: {}
+  switch_proxy_single: {}
+  switch_proxy_double: {}
+  switch_proxy_hold: {}
+#Mi button 2
+  intermediate_toggle_2: {}
+  switch_proxy_single_2: {}
+  switch_proxy_double_2: {}
+  switch_proxy_hold_2: {}
