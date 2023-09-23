@@ -1,0 +1,48 @@
+blueprint:
+  name: Xiaomi Button Multi-Action
+  description: Perform actions based on Xiaomi button presses
+  domain: automation
+  source_url: https://github.com/your_github_account/blueprints
+  input:
+    button_entity:
+      name: Xiaomi Button
+      selector:
+        entity:
+          domain: binary_sensor
+    boolean_single:
+      name: Boolean for Single Press
+      selector:
+        entity:
+          domain: input_boolean
+    boolean_double:
+      name: Boolean for Double Press
+      selector:
+        entity:
+          domain: input_boolean
+    boolean_hold:
+      name: Boolean for Hold
+      selector:
+        entity:
+          domain: input_boolean
+
+trigger:
+  platform: state
+  entity_id: !input button_entity
+
+action:
+  - choose:
+      - conditions: "{{ is_state_attr(trigger.entity_id, 'last_action', 'single') }}"
+        sequence:
+          - service: input_boolean.toggle
+            target:
+              entity_id: !input boolean_single
+      - conditions: "{{ is_state_attr(trigger.entity_id, 'last_action', 'double') }}"
+        sequence:
+          - service: input_boolean.toggle
+            target:
+              entity_id: !input boolean_double
+      - conditions: "{{ is_state_attr(trigger.entity_id, 'last_action', 'hold') }}"
+        sequence:
+          - service: input_boolean.toggle
+            target:
+              entity_id: !input boolean_hold
