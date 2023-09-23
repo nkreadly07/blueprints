@@ -1,14 +1,22 @@
-# Xiaomi Button Multi-Action Blueprint for Home Assistant
+# Aqara/Xiaomi Button Multi-Action Blueprint for Home Assistant
 
 ## Overview
 
 This blueprint allows you to create automations in Home Assistant that react to single, double, or hold actions of a Xiaomi button. Specifically, it toggles associated `input_boolean` entities based on the `last_action` attribute of the Xiaomi button.
+
+This is for Aqara Motion Sensor P1
 
 ## Features
 
 - Toggle an `input_boolean` when a Xiaomi button is single-pressed.
 - Toggle a different `input_boolean` when the button is double-pressed.
 - Toggle yet another `input_boolean` when the button is held.
+
+## Known Issues
+
+### Last Action Attribute
+
+If the `last_action` attribute doesn't change (for example, from "single" to something else), the state of the binary_sensor won't change. Consequently, the trigger for the automation won't fire again. This is a limitation that we are aware of, and we welcome any ideas or contributions to improve this behavior.
 
 ## Installation
 
@@ -35,6 +43,11 @@ This blueprint allows you to create automations in Home Assistant that react to 
 ## Contributing
 
 Feel free to contribute to this blueprint by creating a pull request or opening an issue.
+
+## License
+
+This blueprint is under the MIT License. See the LICENSE file for more details.
+
 
 ## License
 
