@@ -1,0 +1,69 @@
+blueprint:
+  name: Xiaomi/Aqara Button Multi-Action
+  description: Perform actions based on Xiaomi/Aqara button presses
+  domain: automation
+  source_url: https://github.com/nkreadly07/blueprints
+  input:
+    button_entity:
+      name: Xiaomi/Aqara Button
+      selector:
+        entity:
+          domain: binary_sensor
+    boolean_single:
+      name: Boolean for Single Press
+      selector:
+        entity:
+          domain: input_boolean
+    boolean_double:
+      name: Boolean for Double Press
+      selector:
+        entity:
+          domain: input_boolean
+    boolean_hold:
+      name: Boolean for Hold
+      selector:
+        entity:
+          domain: input_boolean
+    control_single:
+      name: Entity to control on Single Press
+      selector:
+        entity: {}
+    control_double:
+      name: Entity to control on Double Press
+      selector:
+        entity: {}
+    control_hold:
+      name: Entity to control on Hold
+      selector:
+        entity: {}
+
+trigger:
+  platform: state
+  entity_id: !input button_entity
+
+action:
+  - choose:
+      - conditions: "{{ is_state_attr(trigger.entity_id, 'last_action', 'single') }}"
+        sequence:
+          - service: input_boolean.turn_on
+            target:
+              entity_id: !input boolean_single
+          - service: homeassistant.toggle
+            target:
+              entity_id: !input control_single
+      - conditions: "{{ is_state_attr(trigger.entity_id, 'last_action', 'double') }}"
+        sequence:
+          - service: input_boolean.turn_on
+            target:
+              entity_id: !input boolean_double
+          - service: homeassistant.toggle
+            target:
+              entity_id: !input control_double
+      - conditions: "{{ is_state_attr(trigger.entity_id, 'last_action', 'hold') }}"
+        sequence:
+          - service: input_boolean.turn_on
+            target:
+              entity_id: !input boolean_hold
+          - service: homeassistant.toggle
+            target:
+              entity_id: !input control_hold
