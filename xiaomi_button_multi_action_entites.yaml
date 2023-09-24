@@ -2,7 +2,7 @@ blueprint:
   name: Xiaomi/Aqara Button Multi-Action
   description: Perform actions based on Xiaomi/Aqara button presses
   domain: automation
-  source_url: https://github.com/nkreadly07/blueprints
+  source_url: https://github.com/your_github_account/blueprints
   input:
     button_entity:
       name: Xiaomi/Aqara Button
@@ -51,6 +51,10 @@ action:
           - service: homeassistant.toggle
             target:
               entity_id: !input control_single
+          - delay: '00:00:05'
+          - service: input_boolean.turn_off
+            target:
+              entity_id: !input boolean_single
       - conditions: "{{ is_state_attr(trigger.entity_id, 'last_action', 'double') }}"
         sequence:
           - service: input_boolean.turn_on
@@ -59,6 +63,10 @@ action:
           - service: homeassistant.toggle
             target:
               entity_id: !input control_double
+          - delay: '00:00:05'
+          - service: input_boolean.turn_off
+            target:
+              entity_id: !input boolean_double
       - conditions: "{{ is_state_attr(trigger.entity_id, 'last_action', 'hold') }}"
         sequence:
           - service: input_boolean.turn_on
@@ -67,3 +75,7 @@ action:
           - service: homeassistant.toggle
             target:
               entity_id: !input control_hold
+          - delay: '00:00:05'
+          - service: input_boolean.turn_off
+            target:
+              entity_id: !input boolean_hold
